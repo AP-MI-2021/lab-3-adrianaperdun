@@ -1,4 +1,4 @@
-#cerintele 4 si 13
+#cerintele 4, 10 si 13
 def citire():
     '''
     Citim elementele listei
@@ -10,22 +10,53 @@ def citire():
         l.append(int(input(f"l[{i}]= ")))
     return l
 
-def elemente_prime(l):
+def numere_prime(l):
     '''
     Functie de arata daca toate elementele unui subliste sunt prime.
     :param l: sublista cu numere intregi
     :return: True daca toate elemntele sunt prime, False in caz contrar
     '''
     for a in l:
-        while a!=0:
-            c=a%10
-            if c==0:
+        while a != 0:
+            c = a % 10
+            if c == 0:
                 return False
-            for b in range(2,c//2+1):
+            for b in range(2,c // 2 + 1):
                 if c % b == 0:
                     return False
-            a=a//10
+            a = a//10
     return True
+
+def numere_pare(l):
+    """
+    Functie ce returneaza True daca toate elementele unei subliste sunt pare.
+    :param l: lista de numere
+    :return: True daca toate sunt pare, False in caz contrar
+    """
+    for x in l:
+        if x % 2 != 0:
+            return False
+    return True
+
+
+def get_longest_all_even(l):
+    """
+    Determina cea mai lunga secventa care are toate numerele pare
+    :param l: lista cu numerele
+    :return: secventa cea mai lunga de numere
+    """
+    subsecmax=[]
+    for i in range(len(l)):
+        for j in range(i, len(l)):
+            if numere_pare(l[i:j+1]) and len(subsecmax) < len(l[i:j+1]):
+                subsecmax= l[i:j+1]
+    return subsecmax
+
+
+def test_get_longest_all_even(l):
+    assert get_longest_all_even([2,4,6,8,9,]) == [2,4,6,8]
+    assert get_longest_all_even([1,3,5]) == []
+    assert get_longest_all_even([1,9,10,3]) == [10]
 
 
 def ordonare(l):
@@ -35,7 +66,7 @@ def ordonare(l):
     :return: True daca sunt ordonate crescator, False in caz contrar
     '''
     for x in l:
-        if x > x + 1:
+        if x < x + 1:
             return False
     return True
 
@@ -45,16 +76,17 @@ def get_longest_sorted_asc(l):
     :param lst: Lista elementelor
     :return: Subsecventa cea mai lunga de numere
     '''
-    subsecvmax = []
+    subsecmax = []
     for i in range(len(l)):
         for j in range(i, len(l)):
-            if ordonare(l[i:j + 1]) and len(subsecvmax) < len(l[i:j + 1]):
-                subsecvmax = l[i:j + 1]
-    return subsecvmax
+            if ordonare(l[i:j + 1]) and len(subsecmax) < len(l[i:j + 1]):
+                subsecmax = l[i:j + 1]
+    return subsecmax
+
 
 def test_get_longest_sorted_asc(l):
-    assert get_longest_sorted_asc([12, 4, 7, 6, 5, 10]) == [7, 6, 5]
-    assert get_longest_sorted_asc([2, 6, 9, 13]) == []
+    assert get_longest_sorted_asc([10,5]) == []
+    assert get_longest_sorted_asc([1,9,10,3]) == [1,9,10]
 
 
 def get_longest_prime_digits(l):
@@ -66,7 +98,7 @@ def get_longest_prime_digits(l):
     submax= []
     for i in range(len(l)):
         for j in range(i, len(l)):
-            if elemente_prime(l[i:j+1]) and len(submax) < len(l[i:j+1]):
+            if numere_prime(l[i:j+1]) and len(submax) < len(l[i:j+1]):
                 submax= l[i:j+1]
     return submax
 
@@ -76,25 +108,29 @@ def test_get_longest_prime_digits(l):
     assert get_longest_prime_digits([6,8,9]) == []
     assert get_longest_prime_digits([6,2,3,8,9,10,11,13,17]) == [11,13,17]
 
-def menu():
-    l = []
-    test_get_longest_sorted_asc(l)
+def main():
+    l=[]
+    test_get_longest_all_even(l)
     test_get_longest_prime_digits(l)
+    '''test_get_longest_sorted_asc(l)'''
     while True:
-        print("1. Citeste datele.")
-        print("2. Determina cea mai lunga subsecventa cu numere ordonate descrescator.")
-        print("3. Determina cea mai lunga subsecventa cu numere care au acelasi numar de divizori.")
-        print("4. Iesire.")
-        op = input("Dati optiunea: ")
-        if op == '4':
+        print("1. Citire date.")
+        print("2. Determina cea mai lungă subsecvență cu proprietatea ca numerele sa fie ordonate crescator.")
+        print("3. Determina cea mai lungă subsecvență cu proprietatea ca numerele sa fie formate din cifre prime.")
+        print("4. Determina cea mai lunga subsecventa cu proprietatea ca numerele sa fie pare.")
+        print("5. Iesire")
+        op=input("Dati optiunea: ")
+        if op == "5":
             break
-        elif op == 1:
+        elif op == "1":
             citire()
-        elif op == 2:
+        elif op == "2":
             print(get_longest_sorted_asc(l))
-        elif op == 3:
+        elif op == "3":
             print(get_longest_prime_digits(l))
+        elif op == "4":
+            print(get_longest_all_even(l))
         else:
-            print("Eroare. Reincercati")
+            print("!!!Optiunea nu este buna!!!")
 
-menu()
+main()
