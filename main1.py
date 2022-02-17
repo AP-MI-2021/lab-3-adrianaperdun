@@ -86,9 +86,9 @@ def test_get_longest_average_below():
     assert get_longest_average_below([1,2,3],1)==[]
 def main():
     while True:
-        print("1.Determina cea mai lunga secventa de patrate perfecte dintr-o lista data.")
-        print("2.Determina cea mai lunga secventa cu proprietatea ca media numerelor din subsecventa este mai mica decat o valoare data .")
-        print("3.Determina cea mai lunga secventa cu proprietatea ca toate numerele din subsecventa sunt divizibile cu un numar dat.")
+        print("1.Cea mai lunga secventa de patrate perfecte dintr-o lista data.")
+        print("2.Cea mai lunga secventa cu proprietatea ca media numerelor din subsecventa este mai mica decat o valoare data .")
+        print("3.Cea mai lunga secventa cu proprietatea ca toate numerele din subsecventa sunt divizibile cu un numar dat.")
         print("4.Iesire din program.")
         optiune = input("Alege optiunea:")
         if optiune == '1':
